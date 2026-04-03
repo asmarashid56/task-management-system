@@ -1,0 +1,22 @@
+# Task Management System
+
+A full-stack project with **NestJS backend** and **React frontend**.
+
+## Project Structure
+- `backend/` → NestJS API (tasks, authentication, MongoDB)
+- `frontend/` → React UI (task list, filters, progress tracking)
+
+## Setup
+
+### Backend
+```bash
+cd backend
+npm install
+npm run start:dev
+
+### Frontend
+cd frontend
+npm install
+npm start
+
+##  Initialize Git
