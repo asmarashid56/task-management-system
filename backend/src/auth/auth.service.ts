@@ -38,7 +38,9 @@ export class AuthService {
     const isMatch = await bcrypt.compare(dto.password, user.password);
     if (!isMatch) throw new UnauthorizedException('Invalid credentials');
 
-    const payload = { sub: user._id, username: user.username };
+    // ✅ Ensure sub is a string, not an ObjectId
+    const payload = { sub: user._id.toString(), username: user.username, email: user.email };
+
     return {
       access_token: this.jwtService.sign(payload),
     };

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getTasks, deleteTask, updateTask } from "../services/api";
 
-function TaskList({ onSelect }) {
-  const [tasks, setTasks] = useState([]);
+function TaskList({ tasks: initialTasks = [], onSelect }) {
+  const [tasks, setTasks] = useState(initialTasks);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -11,10 +11,12 @@ function TaskList({ onSelect }) {
   const [status, setStatus] = useState("");
   const [dueDate, setDueDate] = useState("");
 
+  // ✅ Sync with parent-provided tasks (e.g., from App.js)
   useEffect(() => {
-    loadTasks();
-  }, []);
+    setTasks(initialTasks);
+  }, [initialTasks]);
 
+  // ✅ Optional: still allow fetching with filters if needed
   const loadTasks = async (filters = {}) => {
     setLoading(true);
     setError("");
@@ -32,7 +34,8 @@ function TaskList({ onSelect }) {
   const handleDelete = async (id) => {
     try {
       await deleteTask(id);
-      loadTasks({ search, status, dueDate }); // reload with current filters
+      // Remove from local state immediately
+      setTasks((prev) => prev.filter((t) => t._id !== id));
     } catch (err) {
       console.error(err);
       alert("Failed to delete task");
@@ -42,7 +45,11 @@ function TaskList({ onSelect }) {
   const handleProgressChange = async (id, newProgress) => {
     try {
       await updateTask(id, { progress: newProgress });
-      loadTasks({ search, status, dueDate }); // reload with current filters
+      setTasks((prev) =>
+        prev.map((t) =>
+          t._id === id ? { ...t, progress: newProgress } : t
+        )
+      );
     } catch (err) {
       console.error(err);
       alert("Failed to update progress");

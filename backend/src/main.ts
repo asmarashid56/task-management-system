@@ -1,9 +1,11 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { join } from 'path';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // Enable CORS for frontend on port 3001
   app.enableCors({
@@ -12,7 +14,14 @@ async function bootstrap() {
     credentials: true,
   });
 
+  // ✅ Serve static files from /uploads
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
+    prefix: '/uploads/',
+  });
+
+  // Global validation pipe
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
   await app.listen(3000);
 }
 bootstrap();
