@@ -19,4 +19,59 @@ cd frontend
 npm install
 npm start
 
-##  Initialize Git
+Week 4
+Task Sharing
+
+Backend: PUT /tasks/:id/share endpoint with JWT authentication.
+
+Frontend: Share button in TaskDetails with error/success handling.
+
+Notifications
+
+Real-time notifications integrated for task events.
+
+Access Control
+
+Owners and shared users can view tasks; enforced via JWT guard.
+
+Week 5
+Analytics Dashboard
+
+Backend endpoints:
+
+GET /tasks/analytics/overview → totals and status breakdown.
+
+GET /tasks/analytics/trends → weekly/monthly completed vs overdue.
+
+Frontend dashboard with charts (Chart.js/Recharts).
+
+Data Visualization
+
+Graphs for task performance and trends.
+
+Week 6
+File Uploads
+
+Backend: POST /tasks/:id/attachments with Multer disk storage.
+
+Files saved in /uploads and served via static assets.
+
+Task schema extended with attachments metadata.
+
+Frontend: File input + upload button in TaskDetails, attachments list with clickable links.
+
+Dark Mode
+
+Frontend toggle with preference saved.
+
+Mobile Responsiveness
+
+Layouts optimized for smaller screens.
+
+git init
+git add .
+git commit -m "Initial commit"
+
+git add .
+git commit -m "Complete Week 4, 5, and 6 features: sharing, analytics, file uploads, dark mode, responsiveness"
+git push origin main
