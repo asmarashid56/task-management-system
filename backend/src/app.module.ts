@@ -9,7 +9,9 @@ import { NotificationsGateway } from './notifications/notifications.gateway';
 @Module({
   imports: [
     // ✅ Use Railway environment variable instead of localhost
-    MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/taskdb'),
+    MongooseModule.forRoot(
+  process.env.MONGODB_URI || 'mongodb://localhost:27017/taskdb'
+),
     TasksModule,
     AuthModule,
   ],
